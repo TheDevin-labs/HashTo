@@ -1,0 +1,42 @@
+name: Go CI Cross-Distribution
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - { name: 'ubuntu', image: 'ubuntu:latest', pkg_cmd: 'apt-get update && apt-get install -y golang make' }
+          - { name: 'debian', image: 'debian:stable-slim', pkg_cmd: 'apt-get update && apt-get install -y golang make' }
+          - { name: 'alpine', image: 'alpine:latest', pkg_cmd: 'apk update && apk add go make' }
+          - { name: 'tumbleweed', image: 'opensuse/tumbleweed:latest', pkg_cmd: 'zypper --non-interactive install go make' }
+
+    container:
+      image: ${{ matrix.distro.image }}
+
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Install Dependencies
+      run: ${{ matrix.distro.pkg_cmd }}
+
+    - name: Run Tests
+      run: go test -v ./...
+
+    - name: Execute Makefile Build
+      run: make build
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: hashto-binary-${{ matrix.distro.name }}
+        path: hashto-*
+        if-no-files-found: error
+        
