@@ -2,6 +2,11 @@
 
 HashTo is a high-performance command-line utility written in Go designed to compile raw JSON data into dynamic, well-formatted JavaScript source code. By parsing abstract data structures and mapping them directly to native JavaScript representations, HashTo bridges the gap between static configurations and dynamic front-end environments with zero overhead.
 
+[![License](https://img.shields.io/badge/License-BSD__3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+![Language](https://img.shields.io/badge/Language-Go-blue)
+![Automation](https://img.shields.io/badge/Build-Makefile-orange)
+
+
 ---
 
 ## Architecture Overview
@@ -12,12 +17,6 @@ The utility processes data via a decoupled compiler architecture, ensuring deep 
 ```
 [ Input JSON File ] ---> [ Go Unmarshaling Engine ] ---> [ AST Type Validation ] ---> [ JS Format Generator ] ---> [ Output .js Script ]
 ```
-
-### Process Visualisation
-Below is a conceptual layout of the pipeline architecture:
-
-![HashTo Compilation Pipeline](https://via.placeholder.com/800x400.png?text=HashTo+Compilation+and+Lexical+Analysis+Pipeline)
-
 ---
 
 ## Notice
