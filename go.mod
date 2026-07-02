@@ -1,3 +1,3 @@
-module github.com/TheDevin-labs/HashTo
+module module github.com/TheDevin-labs/HashTo
 
-go 1.20
+go 1.21
